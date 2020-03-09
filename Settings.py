@@ -13,20 +13,39 @@ class Player(object):
         self.left = False
         self.right = False
         self.walkCount = 0
+        self.standing = True
 
 
     def draw(self, screen):
         if self.walkCount + 1 >= 27:
             self.walkCount = 0
 
-        if self.left:
-            screen.blit(walkLeft[self.walkCount//3], (self.x, self.y) )
-            self.walkCount += 1
-        elif self.right:
-            screen.blit(walkRight[self.walkCount // 3], (self.x, self.y) )
-            self.walkCount += 1
+        if not (self.standing):
+
+            if self.left:
+                screen.blit(walkLeft[self.walkCount//3], (self.x, self.y) )
+                self.walkCount += 1
+            elif self.right:
+                screen.blit(walkRight[self.walkCount // 3], (self.x, self.y) )
+                self.walkCount += 1
         else:
-            screen.blit(char, (self.x, self.y) )
+            if self.right:
+                screen.blit(walkRight[0], (self.x, self.y))
+            else:
+                screen.blit(walkLeft[0], (self.x, self.y))
+
+
+class projectile(object):
+    def __init__(self, x, y , radius, color, facing):
+        self.x = x
+        self.y = y
+        self.radius = radius
+        self.color = color
+        self.facing = facing
+        self.vel = 8 * facing
+
+    def draw(self, screen):
+        pg.draw.circle(screen, self.color, (self.x, self.y), self.radius)
 
 
 Width = 1200
