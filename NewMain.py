@@ -56,13 +56,18 @@ while run:
 
     if keys[pg.K_LEFT] and man.x > man.vel:
         man.x -= man.vel
+        man.left = True
+        man.right = False
+        man.up = False
+        man.down = False
 
-
-
-    elif keys[pg.K_RIGHT] and man.x < Width - man.Pwidth - man.vel:
+    if keys[pg.K_RIGHT] and man.x < Width - man.Pwidth - man.vel:
         man.x += man.vel
 
-
+    if keys[pg.K_DOWN] and man.y < Height - man.Pheight - man.vel:
+        man.y += man.vel
+    if keys[pg.K_ESCAPE]:
+        run = False
 
     elif keys[pg.K_UP] and man.y > man.vel:
         man.y -= man.vel
@@ -73,12 +78,9 @@ while run:
         man.walkCount = 0
 
 
-    if keys[pg.K_DOWN] and man.y < Height - man.Pheight - man.vel:
-        man.y += man.vel
-    if keys[pg.K_ESCAPE]:
-        run = False
 
-    if keys[pg.K_SPACE]:
+
+    if event.type == pg.MOUSEBUTTONDOWN:
         mpos = pg.mouse.get_pos()
         mx, my = pg.mouse.get_pos()
         ppos = [man.x, man.y]
@@ -91,7 +93,7 @@ while run:
         yspeeed = vecy / vecc
         print(xspeeed, yspeeed)
 
-        if len(bullets) < 100  :
+        if len(bullets) < 1  :
             bullets.append(projectile(round(man.x + man.Pwidth //2), round(man.y + man.Pheight//2), 6, Black, xspeeed, yspeeed))
 
 
