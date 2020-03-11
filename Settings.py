@@ -1,17 +1,21 @@
 #game settings
 import pygame as pg
 from Sprites import *
+import math
 
 
 class Player(object):
     def __init__(self, x, y, Pwidth, Pheight):
         self.x = x
         self.y = y
+
         self.Pwidth = Pwidth
         self.Pheight = Pheight
         self.vel = 5
         self.left = False
         self.right = False
+        self.up = False
+        self.down = False
         self.walkCount = 0
         self.standing = True
 
@@ -36,16 +40,23 @@ class Player(object):
 
 
 class projectile(object):
-    def __init__(self, x, y , radius, color, facing):
+    def __init__(self, x, y , radius, color, xspeeed, yspeeed):
         self.x = x
         self.y = y
         self.radius = radius
         self.color = color
-        self.facing = facing
-        self.vel = 8 * facing
+        self.xspeeed = xspeeed
+        self.yspeeed = yspeeed
 
     def draw(self, screen):
         pg.draw.circle(screen, self.color, (self.x, self.y), self.radius)
+
+    def update(self):
+        self.x += self.xspeeed * 10
+        self.y += self.yspeeed * 10
+
+
+#class enemy()
 
 
 Width = 1200
@@ -60,6 +71,9 @@ Black = (0,0,0)
 Red = (255,0,0)
 Green = (0,255,0)
 Blue = (0,0,255)
+
+
+
 
 
 # Ikke slet please :)
