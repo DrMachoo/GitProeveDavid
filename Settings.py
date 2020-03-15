@@ -3,7 +3,8 @@ import pygame as pg
 from Sprites import *
 import math
 
-
+#En klasse for dig altså den person man styrer. Vi har brugt nogle sprites som ikke er vores for at prøve om det virker
+#Vi regner med at bruge vores egne sprites i fremtiden
 class Player(object):
     def __init__(self, x, y, Pwidth, Pheight):
         self.x = x
@@ -38,7 +39,7 @@ class Player(object):
             else:
                 screen.blit(walkLeft[0], (self.x, self.y))
 
-
+#En klasse for dine skud
 class projectile(object):
     def __init__(self, x, y , radius, color, xspeeed, yspeeed):
         self.x = x
@@ -55,8 +56,24 @@ class projectile(object):
         self.x += self.xspeeed * 10
         self.y += self.yspeeed * 10
 
+#Vi er i gang med at lave en enemy class som så vil følge efter dig
+class Enemy(object):
+    def __init__(self, x, y , Ewidth, Eheight):
+        self.x = x
+        self.y = y
+        self. Ewidth = Ewidth
+        self.Eheight = Eheight
+        self.vel = 3
+        #self.xspeed = xspeed
+        #self.yspeed = yspeed
 
-#class enemy()
+    def draw(self, screen):
+        pg.draw.rect(screen, Black, (self.x, self.y, self.Ewidth, self.Eheight))
+
+    def update(self):
+        #self.x += self.xspeed
+        #self.y += self.yspeed
+        pass
 
 
 Width = 1200

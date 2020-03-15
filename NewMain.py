@@ -14,10 +14,11 @@ clock = pg.time.Clock()
 
 
 
-
+#Der hvor vi opdatere vores draw funktioner
 def redrawGameWindow():
     screen.blit(bg, (0,0))
     man.draw(screen)
+    enemy.draw(screen)
     for bullet in bullets:
         bullet.draw(screen)
 
@@ -28,7 +29,7 @@ def redrawGameWindow():
 
 #MainLoop
 man = Player(390, 290, 64, 64)
-
+enemy = Enemy(0,0, 40, 40)
 
 
 
@@ -40,7 +41,7 @@ while run:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
-
+    #Dette har vi så skuddene forsvinder når de kommer ud af banen så der ikke er 15 milliarder skud der bare flyver omkring
     for bullet in bullets:
         if bullet.x < Width and bullet.x > 0 and bullet.y < Height and bullet.y > 0:
             bullet.update()
@@ -53,7 +54,7 @@ while run:
 
 
 
-
+    #Karakterens gå funktion
     if keys[pg.K_LEFT] and man.x > man.vel:
         man.x -= man.vel
         man.left = True
@@ -79,7 +80,7 @@ while run:
 
 
 
-
+    #Vores skyde funktion, som tager brug af nogle vektorer til at se hvor musen er og beregner hvor den skal skyde hen
     if event.type == pg.MOUSEBUTTONDOWN:
         mpos = pg.mouse.get_pos()
         mx, my = pg.mouse.get_pos()
