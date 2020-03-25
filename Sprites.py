@@ -1,11 +1,16 @@
 import pygame as pg
+
+#pg.init()
 #De sprites som vi bruger til baggrunden og som laver animationen for charakteren
-walkRight = [pg.image.load('Assets/R1.png'), pg.image.load('Assets/R2.png'), pg.image.load('Assets/R3.png'), pg.image.load('Assets/R4.png'), pg.image.load('Assets/R5.png'), pg.image.load('Assets/R6.png'), pg.image.load('Assets/R7.png'), pg.image.load('Assets/R8.png'), pg.image.load('Assets/R9.png')]
-walkLeft = [pg.image.load('Assets/L1.png'), pg.image.load('Assets/L2.png'), pg.image.load('Assets/L3.png'), pg.image.load('Assets/L4.png'), pg.image.load('Assets/L5.png'), pg.image.load('Assets/L6.png'), pg.image.load('Assets/L7.png'), pg.image.load('Assets/L8.png'), pg.image.load('Assets/L9.png')]
+#Vores karakter har ikke en animation lige nu fordi at vi skulle ændre i koden for at få ham til at skyde
+#Forhåbenligt kan vi fikse det senere
+
+WalkRight = [pg.image.load('R1.png'), pg.image.load('R2.png'), pg.image.load('R3.png'), pg.image.load('R4.png'), pg.image.load('R5.png'), pg.image.load('R6.png'), pg.image.load('R7.png'), pg.image.load('R8.png'), pg.image.load('R9.png')]
+WalkLeft = [pg.image.load('L1.png'), pg.image.load('L2.png'), pg.image.load('L3.png'), pg.image.load('L4.png'), pg.image.load('L5.png'), pg.image.load('L6.png'), pg.image.load('L7.png'), pg.image.load('L8.png'), pg.image.load('L9.png')]
 #walkUp
 #walkDown
-bg = pg.image.load('Assets/Bg.png')
-char = pg.image.load('Assets/standing.png')
+bg = pg.image.load('Bg.png')
+char = pg.image.load('standing.png')
 
 
 
