@@ -25,12 +25,14 @@ def redrawGameWindow():
 
     pg.display.update()
 
-
-
-
 #MainLoop
 man = Player(390, 290, 64, 64)
-enemy = Enemy(0,0, 40, 40)
+enemy = Enemy(100,100,40,40)
+
+
+
+
+
 
 pg.mixer.music.load('Spildemo3.mp3')
 pg.mixer.music.play(-1, 0, 0)
@@ -38,6 +40,7 @@ bullets = []
 run = True
 while run:
     clock.tick(Fps)
+    keys = pg.key.get_pressed()
 
 
 
@@ -53,7 +56,7 @@ while run:
             bullets.pop(bullets.index(bullet))
 
 
-    keys = pg.key.get_pressed()
+
 
 
     #Karakterens gå funktion
@@ -62,7 +65,7 @@ while run:
         man.Left = True
         man.Right = False
 
-    if keys[pg.K_RIGHT] and man.x < Width - man.Pwidth - man.vel:
+    elif keys[pg.K_RIGHT] and man.x < Width - man.Pwidth - man.vel:
         man.x += man.vel
         man.Right = True
         man.Left = False
@@ -99,13 +102,28 @@ while run:
         vecc = math.sqrt((vecx * vecx) + (vecy * vecy))
         xspeeed = vecx / vecc
         yspeeed = vecy / vecc
-        print(xspeeed, yspeeed)
+        #print(xspeeed, yspeeed)
 
 
         if len(bullets) < 1  :
             bullets.append(projectile(round(man.x + man.Pwidth //2), round(man.y + man.Pheight//2), 6, Black, xspeeed, yspeeed))
 
-
+    epos = [enemy.x, enemy.y]
+    ex = epos[0]
+    ey = epos[1]
+    ppos = [man.x, man.y]
+    px = ppos[0]
+    py = ppos[1]
+    evecx = px - ex
+    evecy = py - ey
+    evecc = math.sqrt((evecx * evecx) + (evecy * evecy))
+    xspeed = evecx / evecc
+    yspeed = evecy / evecc
+    print(xspeed, yspeed)
+    enemy.x += xspeed
+    enemy.y += yspeed
+    if ex + enemy.Ewidth == px + man.Pwidth and ey + enemy.Eheight == py + man.Pheigth:
+        run = False
     redrawGameWindow()
 
 

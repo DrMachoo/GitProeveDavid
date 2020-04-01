@@ -10,6 +10,7 @@ WalkLeft = [pg.image.load('L1.png'), pg.image.load('L2.png'), pg.image.load('L3.
 #walkUp
 #walkDown
 bg = pg.image.load('Bg.png')
+Menuq = pg.image.load('BowRain_main_menu.jpg')
 char = pg.image.load('standing.png')
 
 
