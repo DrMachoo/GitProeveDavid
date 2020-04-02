@@ -28,27 +28,26 @@ def redrawGameWindow():
 #MainLoop
 man = Player(390, 290, 64, 64)
 enemy = Enemy(100,100,40,40)
-
-
-
-
+bullets = []
 
 
 pg.mixer.music.load('Spildemo3.mp3')
 pg.mixer.music.play(-1, 0, 0)
-bullets = []
 run = True
 while run:
     clock.tick(Fps)
     keys = pg.key.get_pressed()
-
-
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
     #Dette har vi så skuddene forsvinder når de kommer ud af banen så der ikke er 15 milliarder skud der bare flyver omkring
     for bullet in bullets:
+        if bullet.y - bullet.radius < enemy.hitbox[1] + enemy.hitbox[3] and bullet.y + bullet.radius > enemy.hitbox[1]:
+            if bullet.x + bullet.radius > enemy.hitbox[0] and bullet.x - bullet.radius < enemy.hitbox[0] + enemy.hitbox[2]:
+                enemy.hit()
+                bullets.pop(bullets.index(bullet))
+
         if bullet.x < Width and bullet.x > 0 and bullet.y < Height and bullet.y > 0:
             bullet.update()
 
@@ -102,11 +101,13 @@ while run:
         vecc = math.sqrt((vecx * vecx) + (vecy * vecy))
         xspeeed = vecx / vecc
         yspeeed = vecy / vecc
-        #print(xspeeed, yspeeed)
+        print("Bullet: ",xspeeed, yspeeed)
+        print("Enemy: ", xspeed, yspeed)
 
 
         if len(bullets) < 1  :
             bullets.append(projectile(round(man.x + man.Pwidth //2), round(man.y + man.Pheight//2), 6, Black, xspeeed, yspeeed))
+
 
     epos = [enemy.x, enemy.y]
     ex = epos[0]
@@ -119,11 +120,9 @@ while run:
     evecc = math.sqrt((evecx * evecx) + (evecy * evecy))
     xspeed = evecx / evecc
     yspeed = evecy / evecc
-    print(xspeed, yspeed)
+
     enemy.x += xspeed
     enemy.y += yspeed
-    if ex + enemy.Ewidth == px + man.Pwidth and ey + enemy.Eheight == py + man.Pheigth:
-        run = False
     redrawGameWindow()
 
 

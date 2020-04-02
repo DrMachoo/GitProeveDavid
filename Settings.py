@@ -10,7 +10,6 @@ class Player(object):
     def __init__(self, x, y, Pwidth, Pheight):
         self.x = x
         self.y = y
-
         self.Pwidth = Pwidth
         self.Pheight = Pheight
         self.vel = 5
@@ -19,6 +18,7 @@ class Player(object):
         self.up = False
         self.down = False
         self.walkCount = 0
+        self.hitbox = (self.x + 17, self.y + 11, 31, 57)
 
 
 
@@ -33,9 +33,11 @@ class Player(object):
         elif self.Right:
             screen.blit(WalkRight[self.walkCount // 3], (self.x, self.y))
             self.walkCount += 1
-
         else:
             screen.blit(char, (self.x,self.y))
+        #Så vi kan se vores hitbox
+        self.hitbox = (self.x + 17, self.y + 11, 31, 57)
+        pg.draw.rect(screen, (255,0,0), self.hitbox, 2)
 
 #En klasse for dine skud
 class projectile(object):
@@ -83,16 +85,19 @@ class Enemy(object):
         self.Ewidth = Ewidth
         self.Eheight = Eheight
         self.vel = 3
+        self.hitbox = (self.x + 17, self.y + 11, 31, 57)
         #self.xspeed = xspeed
         #self.yspeed = yspeed
 
     def draw(self, screen):
-        pg.draw.rect(screen, Black, (self.x, self.y, self.Ewidth, self.Eheight))
+        screen.blit(char, (self.x, self.y))
+        #pg.draw.rect(screen, Black, (self.x, self.y, self.Ewidth, self.Eheight))
+        self.hitbox = (self.x + 17, self.y + 11, 31, 57)
+        pg.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
 
-    def update(self):
-        self.x += xspeed
-        self.y += yspeed
-
+    def hit(self):
+        print("Hit the enemy")
+        pass
 
 # Ikke slet please :)
 # greater than >
