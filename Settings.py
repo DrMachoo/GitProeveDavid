@@ -70,7 +70,7 @@ class Player(object):
         if self.health == 0:
             run = False
         pg.display.update()
-        time.sleep(1.5)
+
         #for event in pg.event.get():
             #if event.type == pg.QUIT():
                 #run = False
