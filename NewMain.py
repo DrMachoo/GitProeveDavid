@@ -46,6 +46,8 @@ while run:
         if man.hitbox[1] < enemy.hitbox[1] + enemy.hitbox[3] and man.hitbox[1] + man.hitbox[3] > enemy.hitbox[1]:
             if man.hitbox[0] + man.hitbox[2] > enemy.hitbox[0] and man.hitbox[0] < enemy.hitbox[0] + enemy.hitbox[2]:
                 man.hit()
+                enemy.x = 10
+                enemy.y = 10
                 score -=5
 
 
@@ -54,13 +56,15 @@ while run:
         if event.type == pg.QUIT:
             run = False
     #Dette har vi så skuddene forsvinder når de kommer ud af banen så der ikke er 15 milliarder skud der bare flyver omkring
+
     for bullet in bullets:
-        if bullet.y - bullet.radius < enemy.hitbox[1] + enemy.hitbox[3] and bullet.y + bullet.radius > enemy.hitbox[1]:
-            if bullet.x + bullet.radius > enemy.hitbox[0] and bullet.x - bullet.radius < enemy.hitbox[0] + enemy.hitbox[2]:
-                HitSound.play()
-                enemy.hit()
-                score += 1
-                bullets.pop(bullets.index(bullet))
+        if enemy.visible == True:
+            if bullet.y - bullet.radius < enemy.hitbox[1] + enemy.hitbox[3] and bullet.y + bullet.radius > enemy.hitbox[1]:
+                if bullet.x + bullet.radius > enemy.hitbox[0] and bullet.x - bullet.radius < enemy.hitbox[0] + enemy.hitbox[2]:
+                    HitSound.play()
+                    enemy.hit()
+                    score += 1
+                    bullets.pop(bullets.index(bullet))
 
         if bullet.x < Width and bullet.x > 0 and bullet.y < Height and bullet.y > 0:
             bullet.update()

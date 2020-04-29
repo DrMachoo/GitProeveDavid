@@ -1,5 +1,5 @@
-Width = 800
-Height = 800
+Width = 1200
+Height = 840
 Fps = 60
 vel = 10
 Titel = ("MWDJ’s BowRain")
@@ -65,7 +65,7 @@ class Player(object):
         font1 = pg.font.SysFont('comicsans', 100)
         text = font1.render('-5', 1, Red)
         screen.blit(text, (Width / 2 - (text.get_width()/2), Height / 2))
-        if self.health > 0:
+        if self.health >= 0:
             self.health -= 1
         if self.health == 0:
             run = False
@@ -120,9 +120,9 @@ class Enemy(object):
 
     def draw(self, screen):
         if self.visible:
-            screen.blit(char, (self.x, self.y))
+            screen.blit(enemy, (self.x, self.y))
             #pg.draw.rect(screen, Black, (self.x, self.y, self.Ewidth, self.Eheight))
-            self.hitbox = (self.x + 17, self.y + 11, 31, 57)
+            self.hitbox = (self.x + 17, self.y + 6, 31, 57)
             pg.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
             #Healthbar
             pg.draw.rect(screen, (255,0,0), (self.hitbox[0] - 10, self.hitbox[1] - 20, 50, 10))
