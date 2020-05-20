@@ -10,9 +10,12 @@ WalkLeft = [pg.image.load('Leftside_player.png'), pg.image.load('Leftside_player
 
 
 bg = pg.image.load('Arena.png')
-Menuq = pg.image.load('BowRain_main_menu.jpg')
+Menu = pg.image.load('BowRain_main_menu.jpg')
 char = pg.image.load('standing_player.png')
-enemy = pg.image.load('standing_enemy.png')
+char_enemy = pg.image.load('standing_enemy.png')
+heartSprite = pg.image.load('Heart.png')
+GameOverDemo = pg.image.load('GameOverDemo.jpg')
+
 
 Music = pg.mixer.music.load('Spildemo3.mp3')
 BulletSound = pg.mixer.Sound('bullet.mp3')

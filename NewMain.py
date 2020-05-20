@@ -1,6 +1,8 @@
 import pygame as pg
 from Settings import *
 import math
+import random
+from os import path
 
 #Yeet
 
@@ -12,15 +14,23 @@ pg.display.set_caption(Titel)
 
 clock = pg.time.Clock()
 
-
-
+# Først kører vi denne kode for at vi kan bruge variablen Highscore og vi updatere den hele tiden men når vi dør ændre den sig
+Readhighscore = open("highscore.txt", "r")
+Highscore = Readhighscore.read()
 
 #Der hvor vi opdatere vores draw funktioner
 def redrawGameWindow():
-    screen.blit(bg, (0,0))
+    Readhighscore = open("highscore.txt", "r")
+    Highscore = Readhighscore.read()
+    if dead == False:
+        screen.blit(bg, (0,0))
+    else:
+        screen.blit(GameOverDemo, (0,0))
     text = font.render('Score: ' + str(score), 1, (Black))
+    HStext = font.render('Highscore: ' + str(Highscore), 1, (Black))
     #Tegner vores score på skærmen(ret på x eller y hvis den ser dum ud)
     screen.blit(text, (390, 100))
+    screen.blit(HStext, (390, 200))
     man.draw(screen)
     enemy.draw(screen)
     for bullet in bullets:
@@ -31,12 +41,13 @@ def redrawGameWindow():
 #MainLoop
 font = pg.font.SysFont('comicsans', 30, True)
 man = Player(390, 290, 64, 64)
-enemy = Enemy(100,100,40,40)
+enemy = Enemy(100, 100, 40, 40)
 bullets = []
 
 
 
-pg.mixer.music.play(-1, 0, 0)
+pg.mixer.music.play(-1, 0)
+dead = False
 run = True
 while run:
     clock.tick(Fps)
@@ -46,8 +57,8 @@ while run:
         if man.hitbox[1] < enemy.hitbox[1] + enemy.hitbox[3] and man.hitbox[1] + man.hitbox[3] > enemy.hitbox[1]:
             if man.hitbox[0] + man.hitbox[2] > enemy.hitbox[0] and man.hitbox[0] < enemy.hitbox[0] + enemy.hitbox[2]:
                 man.hit()
-                enemy.x = 10
-                enemy.y = 10
+                enemy.x = random.randint(10, 1100)
+                enemy.y = random.randint(10, 800)
                 score -=5
 
 
@@ -55,7 +66,33 @@ while run:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
-    #Dette har vi så skuddene forsvinder når de kommer ud af banen så der ikke er 15 milliarder skud der bare flyver omkring
+    if dead:
+        man.visible = False
+        enemy.visible = False
+
+        if str(score) > str(Highscore):
+            with open ("highscore.txt", "w") as f:
+                f.write(str(score))
+
+
+        if event.type == pg.MOUSEBUTTONDOWN:
+            man.visible = True
+            enemy.visible = True
+            dead = False
+            enemy.x = 100
+            enemy.y = 100
+            man.x = 390
+            man.y = 290
+            man.health = 3
+            enemy.health = 3
+            score = 0
+            enemy.ekstra = 1.0
+
+        #screen.blit(Menuqmendødligenu, (100,100))
+
+
+    if man.health == 0:
+        dead = True
 
     for bullet in bullets:
         if enemy.visible == True:
@@ -65,7 +102,7 @@ while run:
                     enemy.hit()
                     score += 1
                     bullets.pop(bullets.index(bullet))
-
+        # Dette har vi så skuddene forsvinder når de kommer ud af banen så der ikke er 15 milliarder skud der bare flyver omkring
         if bullet.x < Width and bullet.x > 0 and bullet.y < Height and bullet.y > 0:
             bullet.update()
 
@@ -127,6 +164,8 @@ while run:
         if len(bullets) < 1  :
             bullets.append(projectile(round(man.x + man.Pwidth //2), round(man.y + man.Pheight//2), 6, Black, xspeeed, yspeeed))
 
+    #rnd1 = random.randint(10, 1100)
+    #rnd2 = random.randint(10, 400)
 
     epos = [enemy.x, enemy.y]
     ex = epos[0]
@@ -140,8 +179,8 @@ while run:
     xspeed = evecx / evecc
     yspeed = evecy / evecc
 
-    enemy.x += xspeed
-    enemy.y += yspeed
+    enemy.x += xspeed * enemy.ekstra
+    enemy.y += yspeed * enemy.ekstra
     redrawGameWindow()
 
 
