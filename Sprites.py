@@ -14,7 +14,7 @@ Menu = pg.image.load('BowRain_main_menu.jpg')
 char = pg.image.load('standing_player.png')
 char_enemy = pg.image.load('standing_enemy.png')
 heartSprite = pg.image.load('Heart.png')
-GameOverDemo = pg.image.load('GameOver.png')
+GameOver = pg.image.load('GameOver.png')
 
 
 Music = pg.mixer.music.load('Spildemo3.mp3')
